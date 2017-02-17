@@ -31,7 +31,7 @@ AppAsset::register($this);
         if(Yii::$app->user->identity->role==1){$v=true;}else{$v=false;}
     }
     NavBar::begin([
-        'brandLabel' => 'ระบบงานเอกสาร โรงพยาบาลเหล่าเสือโก้ก',
+        'brandLabel' => 'ระบบงานสนับสนุน (Back Office) โรงพยาบาลเหล่าเสือโก้ก',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -41,11 +41,19 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'หน้าแรก', 'url' => ['/site/index']],
-            ['label' => 'แบบฟอร์มราชการ', 'visible' => false ,'url' => ['/site/contact']],
-
+            ['label' => 'งานธุรการ', 'visible' => true ,'url' => ['/documents/index']],
+            ['label' => 'งานพัสดุ', 'visible' => true ,'items' => [
+                ['label' => 'ขอเบิกพัสดุ','url' => ['/site/index']],
+                ['label' => 'รายการใบคำขอเบิก','url' => ['/site/index']],
+                ['label' => 'รายงานค้างจ่ายพัสดุ','url' => ['/site/index']],
+                ['label' => 'ยืนยันการเบิกพัสดุ','visible' => $v ,'url' => ['/site/index']],
+                ['label' => 'ยืนยันการจ่ายพัสดุ','visible' => $v ,'url' => ['/site/index']],
+            ]],
+            ['label' => 'รายงาน', 'visible' => false ,'url' => ['/site/about']],
             ['label' => 'การจัดการ', 'visible' => $v , 'items' => [
                 ['label' => 'จัดการผู้ใช้','url' => ['/user/admin/index']],
                 ['label' => 'จัดการเอกสาร/หนังสือ','url' => ['/documents/admin']],                
+                ['label' => 'จัดการพัสดุ/วัสดุ','url' => ['/items/index']],                
             ]],
             Yii::$app->user->isGuest ?
                 ['label' => 'เข้าสู่ระบบ', 'url' => ['/user/security/login']] :

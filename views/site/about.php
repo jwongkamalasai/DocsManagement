@@ -6,6 +6,8 @@ use yii\helpers\Html;
 use app\models\DocReply;
 use app\models\Documents;
 use app\models\DocumentsSearch;
+use app\models\Download;
+use dektrium\models\User;
 use app\controller\DocumentsController;
 use yii\grid\GridView;
 use app\models\LContent;
@@ -72,20 +74,14 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'location',
             // 'comment',
             // 'd_update',
-
-            ['class' => 'yii\grid\ActionColumn',
-                'header'=>'รายละเอียด',
-                'template'=>'{link}     {download}',
-                'buttons'=>[
-                    'link' => function($url,$model,$key){
-                        return Html::a('<i class="glyphicon glyphicon-link"></i>',$url);
-                    },
-                    'download' => function($url,$model,$key){
-                        return Html::a('<i class="glyphicon glyphicon-download"></i>',$url);
+            [
+                'attribute' => 'register',
+                'value' => function($model, $key, $index, $column)
+                {
+                    return Download::getDlBy($model->ref);
                     }
-
-                ]
             ],
+
         ],
     ]); ?>
 </div>

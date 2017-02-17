@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use dektrium\models\User;
 /**
  * This is the model class for table "download".
  *
@@ -44,7 +44,7 @@ class Download extends \yii\db\ActiveRecord
             'id' => 'ID',
             'ref' => 'Reference',
             'download_by' => 'Download By',
-            'download_date' => 'Download Date',
+            'download_date' => 'วันที่ ดาวน์โหลด',
         ];
     }
     public function findDocs($id)
@@ -54,6 +54,10 @@ class Download extends \yii\db\ActiveRecord
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    public function getDlBy($ref)
+    {
+        return $this->hasOne(User::className(),['id'=>'download_by']);
     }
 
 }
